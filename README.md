@@ -740,3 +740,238 @@ Those packages appearing in your CodeArtifact repository are proof that the enti
 ---
 
 ##  Continuous Integration with CodeBuild
+**Step -1 : Setting Up Our CodeBuild Project**
+
+AWS CodeBuild is a **continuous integration service** that **automates** this entire build process for you. When a developer pushes new code, CodeBuild **automatically** compiles the code, runs the tests, and packages everything up. This saves enormous time, eliminates human error, and helps you deliver better software faster! That's why CodeBuild is an essential part of a CI/CD pipeline - it automatically makes sure your application is always built consistently and correctly.
+
+**Continuous Integration** is like having a quality control checkpoint that automatically kicks in whenever anyone on your team makes changes to your code. Instead of waiting until the end of a project to discover that something broke, CI helps you catch and fix issues early and often. CI helps you constantly check that everything still works as expected - running tests, compiling code, and making sure new changes play nicely with the existing codebase.
+
+**Create a CodeBuild Project**
+-  Log in to your AWS Management Console.
+-  In the top search bar, type `CodeBuild`.
+-  Select **CodeBuild** from the dropdown menu under **Services**.
+-  In the CodeBuild dashboard, find the left navigation menu.
+-  Select **Build projects**.
+
+**CodeBuild project** is basically the blueprint for your CI process. It's where you tell AWS everything it needs to know about how to build your application. This includes things like **where** your code lives (like GitHub), what kind of **environment** you need (Linux or Windows? Java or Python?), exactly what **commands** to run during the build, and where to **store** the results when it's done. Think of it as a recipe that CodeBuild follows every time it needs to build your application.
+
+**Configure Your Build Project**
+-  On the **Create build project** page, scroll to the **Project configuration** section.
+-  Under **Project name**, enter `nextwork-devops-cicd`.
+-  Under **Project type**, make sure **Default project** is selected.
+
+CodeBuild gives you two main types of projects, each designed for different CI/CD needs:
+  1.  **Default project**: This is your standard option that most teams use. It's perfect when you want to manage your entire build process within AWS. You get full control over how your build runs, what goes in, and what comes out - all without leaving the AWS ecosystem.
+  2.  **Runner project**: This option is for teams who already have CI systems like GitHub Actions or GitLab CI but want to tap into the power of CodeBuild's build environment. It's like having CodeBuild do the heavy lifting while your existing CI system orchestrates the overall process.
+
+For this project, we're using a **Default project** to directly manage our CI process within CodeBuild.
+
+-  Scroll down to the **Source** section.
+-  Under **Source provider**, select **GitHub**.
+
+CodeBuild doesn't know where your web app's code lives! **Source** means the location of the code that CodeBuild will fetch, compile, and package into a file you can deploy. We're choosing GitHub as our source provider because that's where we've stored our web app's code. By connecting CodeBuild directly to GitHub, we're creating a seamless pipeline where code changes automatically flow into our build process.
+
+CodeBuild plays well with lots of different code repositories - AWS CodeCommit, Bitbucket, GitHub, and even plain S3 buckets. This flexibility lets you keep using whichever code storage system your team prefers while still getting all the benefits of AWS's build capabilities.
+
+To allow CodeBuild to access your private GitHub repository, we need to establish a connection using **AWS CodeConnections**. Connecting to GitHub is crucial for CodeBuild to access your project's code.
+-  In the **Source** section, under **Credential**, you might see the message `You have not connected to GitHub. Manage account credentials`.
+-  Click on **Manage account credentials**.
+-  You will be taken to the **Manage default source credential** page.
+
+![image alt](DevOps-40)
+
+-  Ensure **GitHub App** is selected for **Credential type**.
+
+When connecting to GitHub, CodeConnections gives you a few different options, each with their own trade-offs:
+  1.  **GitHub App**: This is generally the simplest and most secure option. AWS manages the application and connection, reducing the need for you to handle tokens or keys directly. It's recommended for most use cases due to its ease of use and enhanced security.
+  2.  **Personal access token**: This method uses a personal access token generated from your GitHub account. You might remember using this for authenticating to GitHub from the terminal. While straightforward, it requires you to manage and rotate tokens, which can be less secure and more operationally intensive.
+  3.  **OAuth app**: This involves setting up an OAuth application in GitHub and configuring CodeConnections to use it. It provides a more granular control over permissions but is more complex to set up compared to GitHub App.
+
+-  Select **create a new GitHub connection**.
+-  On the **Create connection** page, under **Connection details**, enter `nextwork-devops-cicd` as the **Connection name**.
+-  Click **Connect to GitHub**.
+-  You will be taken to GitHub to authorize the **AWS Connector for GitHub** application.
+-  Select your GitHub user account where your repository is located.
+-  Select **Select**.
+-  After authorization on GitHub, you'll get taken back to the AWS console.
+-  Under **GitHub Apps**, you'll see that your GitHub username is an option now!
+-  Select your GitHub username.
+-  Click **Connect**.
+
+**Awesome! You've successfully connected to GitHub**. It might seem like a few steps, but this process securely links your AWS account to your GitHub account using the AWS Connector for GitHub.
+-  You should get redirected back to CodeBuild's **Manage default source credential** page after successful connection.
+-  On the **Manage default source credential** page, you should see your newly created connection listed.
+-  Click **Save** at the bottom of the page.
+
+By saving the GitHub App connection as the default credential, you make it easier to reuse this connection for future CodeBuild projects. This avoids the need to repeat the connection setup process each time you create a new project that uses the same GitHub account.
+
+-  Now, back in the **Create build project** page, in the **Source** section, you should see a success message in green: "Your account is successfully connected by using an AWS managed GitHub App."
+
+![image alt](DevOps-41)
+
+When we were taken to different pages to connect to GitHub, that was CodeBuild passing us to another Code service (called **AWS CodeConnections**) behind the scenes! AWS CodeConnections is like a secure bridge between AWS and your external code repositories. Instead of dealing with the headache of managing API keys, tokens (like GitHub's Personal Access Tokens!), or SSH credentials, CodeConnections handles all that authentication complexity for you - so you can focus on building your application.
+
+If you'd like, you can open the left hand navigation menu, expand **Settings** at the bottom of the list, and open the **Connections** page. You can manage all connections you set up with CodeConnections there!
+
+-  You can now select your GitHub repository `nextwork-devops-webapp` as the source.
+
+**Next, we need to define the environment where our builds will run. This includes the operating system, runtime, and compute resources.**
+-  Scroll down to the **Primary source webhook events** section.
+-  **Untick** the **Webhook** checkbox that says "Rebuild every time a code change is pushed to this repository."* Scroll down to the **Environment** section.
+-  Under **Compute**, for **Provisioning model**, choose **On-demand**.
+
+**Provisioning model** determines how AWS will set up and manage everything needed for your build. Choosing **On-demand** means AWS will create the resources you need for your build only when you start it, and tear them down when the build is done. This is cost-effective and efficient!
+
+-  For **Environment image**, choose **Managed image**.
+
+**Environment image** is like a template for your build environment (just like how AMI's are templates for your EC2 instances). In more technical terms, environment images are pre-configured versions of the build environment so you won't need to install all the software/tools/settings required to build a project. We choose **Managed image** here, which means we're using a template that AWS has already created for us. The next few settings we pick underneath this will then tell CodeBuild what kind of image we're looking for.
+
+- For **Compute type**, choose **EC2**.
+
+**Compute** sets up the servers that will actually run the commands and do the work for your project's build! Your project's build will run on **Amazon EC2** instances, which are more flexible and powerful than **AWS Lambda** functions. Lambda is optimized for speed and faster startup times. Our web app is fairly simple and doesn't require a lot of resources, but it's also built in **Java Corretto 8**, which is a language that's not supported by Lambda.
+
+![image alt](DevOps-42)
+
+-  Under **Environment**, for **Operating system**, select **Amazon Linux**.
+-  For **Runtime(s)**, select **Standard**.
+-  For **Image**, choose `aws/codebuild/amazonlinux-x86_64-standard:corretto8`.
+-  Keep **Image version** as **Always use the latest image for this runtime version**.
+
+![image alt](DevOps-43)
+
+-  Under **Service role**, select **New service role**.
+
+Now, let's define how CodeBuild will actually build your application using a `buildspec.yml` file.
+-  Scroll down to the **Buildspec** section.
+-  Under **Buildspec format**, select **Use a buildspec file**.
+-  Leave **Buildspec name** as default `buildspec.yml`.
+
+`buildspec.yml` file is like a **detailed instruction manual for CodeBuild**. Placed in the root of your repository, it tells CodeBuild exactly what to do at each stage of the build process - what tools to install, what commands to run, and what files to package up when it's done. CodeBuild automatically looks for a file named `buildspec.yml` in the root directory of your source code. If it finds one, it uses it to execute the build. If not, the build will fail (as we'll see later)!
+
+-  Scroll down to the **Batch configuration** section.
+
+Batch configuration lets you run multiple builds at once as part of a single batch job. This becomes super useful when you need to test your code across different environments (like various operating systems or browser configurations) or when you want to parallelize parts of your build process to save time. **While we won't use it in this project**, it's a powerful feature for more complex workflows.
+
+-  Scroll down to the **Artifacts** section. We need to configure where CodeBuild will store the **build artifacts**.
+
+**Build artifacts** are the tangible outputs of your build process. They're what you'll actually deploy to your servers or distribute to users. That's why storing them properly in S3 is so important - they're the whole reason we're running the build in the first place.
+
+For our project, we want our build process to create one build artifact that packages up everything a server could need to host our web app in one neat bundle. This bundle is called a WAR file (which stands for Web Application Archive, or Web Application Resource) and it works just like a zip file - a server will simply "unzip" your WAR file to find a bunch of files and resources (which are also build artifacts, i.e. a WAR file is a build artifact that bundles up other build artifacts) and host your web app straight away. Notice how you haven't been able to view your web app on a web browser so far in this project series - that's because we haven't created and deployed the WAR file yet!
+
+Note: our build process will create a .war file (a packaged Java web application) as the build artifact, but artifacts could be executables, libraries, documentation, or any output your build creates.
+
+-  For **Type**, select **Amazon S3**.
+
+Your compiled applications, libraries, or any output files from your build need a safe, accessible home after the build finishes. **S3** is perfect for this - it's a highly reliable and scalable storage solution that's also in our AWS environment (which makes the artifact easily accessible for deployment later).
+
+-  Let's head to the `S3` console. In the AWS Management Console search bar, type `S3` and select **S3** from the dropdown menu under **Services**.
+-  Make sure you're still in the same region where you set up the CodeBuild build project.
+-  On the **Buckets** page, click **Create bucket**.
+-  In the **Create bucket** page, under **General configuration**, for **Bucket name**, enter `nextwork-devops-cicd-yourname`.
+-  Leave all other settings as default.
+-  Click **Create bucket** at the bottom of the page.
+-  **Refresh** the build project page in your browser - you might need to configure your build project again. Challenge yourself to re-do the setup with less guidance!
+-  In your CodeBuild project, head back to the **Artifacts** section.
+-  For **Type**, select **Amazon S3**.
+-  For **Bucket name**, choose your newly created bucket `nextwork-devops-cicd` from the dropdown.
+-  In **Name**, enter `nextwork-devops-cicd-artifact`. This names our artifact, so it's easy to spot it in the S3 bucket.
+-  For **Artifacts packaging**, select **Zip**.
+
+**Finally, let's enable CloudWatch logs to monitor our build process. Logs are essential for tracking build progress, debugging errors, and auditing build activities.**
+- Scroll down to the **Logs** section.
+-  Make sure **CloudWatch logs** is checked.
+
+**Amazon CloudWatch Logs** is a monitoring service that collects and tracks logs from AWS services. In this project, CloudWatch will record everything that happens during the build process, including the commands that are run, the output of those commands, and any errors that occur. This is incredibly useful for debugging and understanding what went wrong if a build fails.
+
+-  In **Group name**, enter `/aws/codebuild/nextwork-devops-cicd`.
+
+By using a specific name like `/aws/codebuild/nextwork-devops-cicd`, you're essentially creating a dedicated folder for all logs related to this project. This becomes super helpful as your AWS environment grows. Imagine having hundreds of projects and services to track! With custom group names, you can instantly filter and find the logs you need with this classic naming convention.
+
+-  Scroll to the bottom of the page and click **Create build project**.
+
+**Step - 2 : Run the Build and Troubleshoot Failures**
+
+Now that our CodeBuild project is fully configured, let's initiate our first build and see our CI pipeline in action!
+
+-  Navigate to your newly created CodeBuild project `nextwork-devops-cicd`.
+-  Click the **Start build** button.
+-  You will be redirected to the build execution page.
+-  You should see the build status change to **In progress**.
+
+![image alt](DevOps-44)
+
+-  Wait for the build to complete.
+-  Oooo, looks like the build failed!
+-  By checking the logs and phase details, we can pinpoint exactly where and why our build is failing.
+-  Select the **Phase details** tab to understand the failure.
+-  Aha, the `DOWNLOAD_SOURCE` phase has failed with the error message `YAML_FILE_ERROR: YAML file does not exist`.
+
+![image alt](DevOps-45)
+
+Good news - this is exactly what we expected to happen! This error simply means CodeBuild couldn't find the `buildspec.yml` file in your GitHub repository, which makes sense because we haven't created it yet. Without this file, CodeBuild doesn't know how to build your project. We'll create this file in the next steps.
+
+-  Click on the **Build details** tab.
+-  Scroll down to the **Buildspec** section.
+-  Let's make sure that it says **Using the buildspec.yml in the source code root directory**.
+-  This confirms that CodeBuild is looking for **buildspec.yml** in the root directory of our web app's `nextwork-web-project` code repository... we haven't created that file yet!
+-  In fact, let's check our GitHub repository. Select the **Repository** link in your CodeBuild project.
+
+![image alt](DevOps-46)
+
+-  Welcome back to your GitHub repo!
+-  As you might've noticed, there's no `buildspec.yml` file - it should be in the root of your web app repository 🙈 Let's create it now.
+-  Open your project in VS Code or your preferred code editor.
+-  Select **File** > **Open Folder...**
+-  Open your `nextwork-web-project` folder.
+-  Select **Ok**.
+
+![image alt](DevOps-47)
+
+-  In VS Code, in the Explorer pane, create a new file on the project root (`nextwork-web-project`).
+-  Enter `buildspec.yml` as the file name.
+
+![image alt](DevOps-48)
+
+-  Paste the following code for buildspec.yml:
+
+```yaml
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto8
+  pre_build:
+    commands:
+      - echo Initializing environment
+      - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain nextwork --domain-owner 123456789012 --region us-east-2 --query authorizationToken --output text`
+
+  build:
+    commands:
+      - echo Build started on `date`
+      - mvn -s settings.xml compile
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - mvn -s settings.xml package
+artifacts:
+  files:
+    - target/nextwork-web-project.war
+  discard-paths: no
+```
+
+![image alt](DevOps-49)
+
+-  In the `buildspec.yml` file:
+    -  Replace the placeholder AWS Account ID `123456789012` with your actual AWS Account ID.
+    -  Check that the region code is correct! Update the region section from `--region us-east-2` to the AWS region you're using.
+-  Save the `buildspec.yml` file (press Ctrl+S or Cmd+S on the keyboard).
+-  Now, we need to commit and push the `buildspec.yml` file to your GitHub repository so CodeBuild can access it.
+-  Open the terminal in VS Code (Ctrl+or Cmd+).
+-  Run the following Git commands:
+
+```bash
+git add .
+git commit -m "Adding buildspec.yml file"
+git push
+```
