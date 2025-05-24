@@ -5,6 +5,9 @@ In this project I'll build from scratch a CI/CD pipeline that automates the buil
 ---
 ##  Table Of Content
 -  [Set Up a Web App in the Cloud](#Set-Up-a-Web-App-in-the-Cloud)
+-  [Connect a GitHub Repo with AWS](Connect-a-GitHub-Repo-with-AWS)
+-  [Secure Packages with CodeArtifact](Secure-Packages-with-CodeArtifact)
+-  [Continuous Integration with CodeBuild](Continuous-Integration-with-CodeBuild)
 
 ---
 
@@ -550,10 +553,10 @@ For Maven to start working with CodeArtifact, we need to create an **IAM role** 
 - On your newly created repository's page, click the **View connection instructions** button at the top right corner.
 - In the **Connection instructions** page, we're configuring how Maven will connect to your CodeArtifact repository.
 - For **Operating system**, select **Mac and Linux**.
-- For **Package manager client**, select **mvn** (Maven).
 
 Even if you're doing this project on a Windows computer, don't forget that the EC2 instance we're using was launched with **Amazon Linux 2023** as its AMI! `mvn` is short for Maven, which is the tool we installed to manage the building process for our Java web app. This also makes Maven our package manager, i.e. the tool that helps us install, update and manage the external packages our web app uses.
 
+- For **Package manager client**, select **mvn** (Maven).
 - Double check that you're using **Mac and Linux** as the operating system. Even if you're doing this project on a Windows computer, Mac and Linux is the right choice - your **EC2 instance** is an **Amazon Linux 2023** instance!
 - Make sure that **Configuration method** is set to **Pull** from your repository.
 - Nice! The menu will now show you the steps and commands needed to connect Maven to your CodeArtifact repository.
@@ -564,7 +567,7 @@ Export CodeArtifact authorization token
 
 ![image alt](DevOps-30)
 
-**"Export a CodeArtifact authorization token for authorization to your repository from your preferred shell" ** It actually just means you need to run the command in Step 3 to give your terminal a temporary password. That password will grant your development tools (i.e. Maven) access to your repositories in CodeArtifact. Maven uses this token whenever it needs to fetch something from your CodeArtifact repository.
+**"Export a CodeArtifact authorization token for authorization to your repository from your preferred shell"** It actually just means you need to run the command in Step 3 to give your terminal a temporary password. That password will grant your development tools (i.e. Maven) access to your repositories in CodeArtifact. Maven uses this token whenever it needs to fetch something from your CodeArtifact repository.
 
 - Go back to your VS Code terminal, which is connected to your EC2 instance.
 - Paste the copied command into the terminal and press **Enter** to run it.
@@ -671,8 +674,6 @@ Let's make sure everything is set up correctly by verifying the connection to ou
 - Create a new file at the root of your `nextwork-web-project` directory.
 - Name the new file `settings.xml`.
 
-![image alt](DevOps-34)
-
 **settings.xml** is like a settings page for Maven - it stores all the settings we saw in Steps 4-6 of the connection window. It tells Maven how to behave across all your projects. In our case, we need a settings.xml file to tell Maven where to find the dependencies and how to get access to the right repositories (e.g. the ones in CodeArtifact).
 
 - Open the `settings.xml` file. If you created a new file, it will be empty.
@@ -683,6 +684,59 @@ Let's make sure everything is set up correctly by verifying the connection to ou
 </settings>
 ```
 
+![image alt](DevOps-34)
+
 - Go back to the CodeArtifact connection settings panel.
 - From the **Connection instructions** dialog, copy the XML code snippet from **Step 4: Add your server to the list of servers in your settings.xml**.
+
+![image alt](DevOps-35)
+
+The **servers** section is where your store your access details to the repositories you're connecting with your web app project. In this example, you've added your authentication token to access your local CodeArtifact repository.
+
 - Paste the code in the **settings.xml** file, in between the `<settings>` tags.
+- Let's copy the XML code snippet from **Step 5: Add a profile containing your repository to your settings.xml.**
+
+![image alt](DevOps-36)
+
+The **profiles** section is where you write a rulebook on when Maven should use which repository. We only have one package repository in this project, so our profiles section is more straightforward than other projects that might be pulling from multiple repositories! Our profiles section is telling Maven to go to the nextwork-packages repository to find the tools / packages needed to build your Java web app.
+
+- Paste the code snippet you copied right underneath the `<servers>` tags. Make sure the `<profiles>` tags are also nested inside the `<settings>` tags.
+- Finally, paste the XML code snippet from **Step 6: (Optional) Set a mirror in your settings.xml...** right underneath the `<profiles>` tags.
+
+The **mirrors** section sets up backup locations that Maven can check if it can't find what it needs in the first local repository it goes to. The backup location that we'll set by default is... our CodeArtifact repository again. This means that for any repository requests (denoted by the asterisk * in the * line), Maven will redirect those requests to the same CodeArtifact repository since it's our only local repository. It might seem unnecessary now, but mirrors are great in complex scenarios and is a great fallback option to set up from the start!
+
+![image alt](DevOps-37)
+
+Save the `settings.xml` file.
+
+Compile your project and verify the CodeArtifact integration
+-  In your VS Code terminal, run `pwd` to check that you're in the root directory of your `nextwork-web-project`
+-  If you're not at the root directory, run `cd nextwork-web-project` to get there!
+-  Next, we'll **compile** your project.
+-  Run the Maven compile command, which uses the `settings.xml` file we just configured:
+
+```bash
+mvn -s settings.xml complie
+```
+
+-  Press **Enter** to execute the command.
+-  As Maven compiles your project, observe the terminal output.
+-  You should see messages like `Downloading from nextwork-devops-cicd` telling us that Maven is downloading dependencies from your CodeArtifact repository. This is a good sign that Maven is using CodeArtifact to manage dependencies!
+-  If the compilation is successful and dependencies are downloaded from CodeArtifact, you'll see a `BUILD SUCCESS` message at the end of the Maven output.
+
+![image alt](DevOps-38)
+
+When you run `mvn -s settings.xml compile`, Maven first looks at your project's dependencies in the `pom.xml` file. Then, instead of downloading them directly from public repositories, it checks your CodeArtifact repository. If the dependency isn't already in CodeArtifact, it will fetch it from the upstream repository (Maven Central in our case), cache it in CodeArtifact, and then deliver it to your project. This process happens for each required dependency, ensuring that your build process is secure, controlled, and faster for subsequent builds when dependencies are already cached in CodeArtifact.
+
+-  Let's head back to the CodeArtifact console in your browser.
+-  Close the connection instructions window.
+-  If you don't see any packages in your repository listed yet, click the **refresh** button in the top right corner of the Packages pane.
+-  After refreshing, you should now see a list of Maven packages in your CodeArtifact repository.
+
+![image alt](DevOps-39)
+
+Those packages appearing in your CodeArtifact repository are proof that the entire system is working! Here's what happened behind the scenes: when you ran the Maven compile command, Maven checked your project's pom.xml file and determined which dependencies your application needs. It then requested these dependencies through CodeArtifact. Since this was the first time these dependencies were requested, CodeArtifact didn't have them yet. So it reached out to Maven Central (the upstream repository we configured), downloaded the packages, stored copies in your repository, and then provided them to Maven. Now that these packages are stored in your CodeArtifact repository, anyone else in your organization who needs the same dependencies will get them directly from your repository instead of from Maven Central. This gives you faster builds, more reliability, and the ability to control exactly which package versions your organization uses.
+
+---
+
+##  Continuous Integration with CodeBuild
