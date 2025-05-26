@@ -1068,7 +1068,7 @@ When you deploy a CloudFormation template, you're creating a **stack** - think o
 -  Select **Template is ready**.
 -  Select **Upload a template file**.
 -  Select **Choose file.**
--  Upload the following CloudFormation template: **nextworkwebapp.yaml**
+-  Upload the following CloudFormation template: [nextworkwebapp.yaml](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/d12b68a507368e363e5a76a3f31cef40d7268132/nextworkwebapp.yaml)
 
 A CloudFormation **template** is a text file where you tell CloudFormation the AWS resources you want to create and how they should be configured - like specifying "I want a t2.micro EC2 instance with this security group and permissions to access this S3 bucket." The beauty is that this template is both human-readable AND machine-executable. In our project, we're using YAML because it's a bit friendlier to read than JSON (fewer brackets and quotes to keep track of!).
 
