@@ -1409,8 +1409,6 @@ These settings give you extra flexibility when you need to handle special cases 
 -  Scroll down to **Deployment lifecycle events** and monitor the events by clicking **View events**.
 -  See the lifecycle events progressing, such as `BeforeInstall`, `ApplicationStart`, etc. These are the events you defined in `appspec.yml`!
 
-![image alt](DevOps-68)
-
 -  Whoops! After a few minutes of waiting, you might notice that you **hit an error**...
 -  Why do you think your deployment failed?
 -  Don't forget, CodeDeploy is deploying your web app by grabbing the latest build artifact from your S3 bucket.
