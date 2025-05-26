@@ -25,16 +25,16 @@ When you create an AWS account for the first time, the login you get is called t
 
 If you're prompted with a pop up panel that says **Are you providing access to a person?**, choose **I want to create an IAM user**.
 
-![image alt](DevOps-1)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-1.png)
 
 -  For the console password, choose **Custom password**.
 -  Type in a password that you will be able to remember/access in the future.
 
-![image alt](DevOps-2)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-2.png)
 
 -  Deselect the checkbox for **Users must create a new password at next sign-in - Recommended**.
 
-![image alt](DevOps-3)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-3.png)
 
 -  Choose **Next**.
 -  In the permissions set up page, choose **Attach policies directly**.
@@ -44,11 +44,11 @@ If you're prompted with a pop up panel that says **Are you providing access to a
 -  Voilà - you've just created your new user! **Stay on this page**.
 -  Choose **Download .csv file**.
 
-![image alt](DevOps-4)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-4.png)
 
 -  Copy the **Console sign-in URL**.
 
-![image alt](DevOps-5)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-5.png)
 
 -  Now you're ready to start using your IAM user. 🏁
 -  Log out of your root user's AWS Account.
@@ -63,7 +63,7 @@ Since we want your web app to be entirely created and run on the cloud, we'll us
 
 -  Switch your **Region** to the one closest to you.
 
-![image alt](DevOps-6)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-6.png)
 
 -  Head to **Amazon EC2** in your AWS Management Console.
 
@@ -88,7 +88,7 @@ The key pair type determines the algorithm used for generating the key pair's cr
 
 -  Select **Create key pair**.
 
-![image alt](DevOps-7)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-7.png)
 
 -  A new file will automatically download to your local computer - This is your private key. Before we lose track of our .pem file, let's organise it in our computer. Head to your local computer's desktop. Create a new folder in your desktop called **DevOps**.
 -  Move your .pem file from your **Downloads** folder into your **DevOps** folder.
@@ -100,7 +100,7 @@ SSH is also a type of network traffic. Once SSH has authorized you, it'll set up
 
 -  Leave the default values for the remaining sections.
 
-![image alt](DevOps-8)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-8.png)
 
 -  When you're ready, choose **Launch instance**.
 
@@ -112,7 +112,7 @@ Our EC2 instance is working and we'll use VS Code to connect to our EC2 instance
 -  Select **Terminal** from the top menu bar.
 -  Select **New Terminal** from the dropdown.
 
-![image alt](DevOps-9)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-9.png)
 
 A terminal is where you send instructions to your computer using text instead of clicks. Every computer has a terminal. On Windows, it's often called Command Prompt or PowerShell, while macOS and Linux systems use Terminal.
 
@@ -140,7 +140,7 @@ This command stands for "**change mode**", and it changes the permissions of you
 
 A Public IPv4 DNS (which stands for Domain Name System) is the public address for your EC2 server that the internet uses to find and connect to it. The local computer you're using to do this project will find and connect to your EC2 instance through this IPv4 DNS.
 
-![image alt](DevOps-10)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-10.png)
 
 -  Now we'll connect to our instance via SSH.
 -  Head back to VS Code and open your terminal again.
@@ -152,7 +152,7 @@ A Public IPv4 DNS (which stands for Domain Name System) is the public address fo
 -  Enter `yes` to continue connecting.
 -  Congrats! You've connected your EC2 instance via SSH.
 
-![image alt](DevOps-11)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-11.png)
 
 **Step - 4 : Install Apache Maven and Amazon Corretto 8**
 
@@ -172,7 +172,7 @@ source ~/.bashrc
 
 - Once you've pasted these commands, don't forget to press **Enter** on your keyboard.
 
-![image alt](DevOps-12)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-12.png)
 
 - Now we're going to install Java 8, or more specifically, **Amazon Correto 8**.
 
@@ -188,15 +188,15 @@ export JAVA_HOME=/usr/lib/jvm/java-1.8.0-amazon-corretto.x86_64
 export PATH=/usr/lib/jvm/java-1.8.0-amazon-corretto.x86_64/jre/bin/:$PATH
 ```
 
-![image alt](DevOps-13)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-13.png)
 
 - To verify that Maven is installed correctly, run the following command next: `mvn -v`
 
-![image alt](DevOps-14)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-14.png)
 
 - To verify that you've installed Java 8 correctly, run this next: `java -version`
 
-![image alt](DevOps-15)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-15.png)
 
 **Step - 5 : Create the Application**
 
@@ -217,13 +217,13 @@ When you run **mvn** commands, you're asking Maven to perform tasks (like creati
 
 - Watch out for a **BUILD SUCCESS** message in your terminal once your application is all set up.
 
-![image alt](DevOps-16)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-16.png)
 
 Now we'll connect VS Code to your EC2 instance so you can see and edit the web app you've just created. Earlier we connected with SSH in the terminal lets us send text commands to our EC2 instance, but we don't get all the benefits of having an **IDE** like VS Code. When we connect VS Code itself to our EC2 instance (not just your terminal), it unlocks VS Code’s **IDE features (like file navigation and code editing)** directly on our EC2 instance. This will make it so much easier for us to edit and manage your web app.
 
 - Click on the **Extensions** icon at the side of your VS Code window.
 
-![image alt](DevOps-17)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-17.png)
 
 - In the search bar, type `Remote - SSH` and click **Install** for the extension.
 
@@ -246,7 +246,7 @@ An **SSH Host** is the computer or server we're connecting to using SSH. It's th
   - **IdentityFile** should match up to nextwork-keypair.pem's location in our local computer.
   - **User** should say ec2-user
 
-![image alt](DevOps-18)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-18.png)
 
 - Now you’re ready to connect VS Code with your EC2 instance!
 - Click on the double arrow button on the bottom left corner and select **Connect to Host** again.
@@ -264,7 +264,7 @@ Now let's open up your web app's files.
 - Check your VS Code window's file explorer again - a folder called **nextwork-web-project** is here!
 - Try expanding all the subfolders in the file explorer. All folders have a `>` icon next to their name.
 
-![image alt](DevOps-19)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-19.png)
 
 All the files and subfolders we see under **nextwork-web-project** are parts of a web app! We can start working right away on the content we want to display on our web app, since Maven's taken care of the basic structuring and setup.
 
@@ -292,7 +292,7 @@ All the files and subfolders we see under **nextwork-web-project** are parts of 
 
 - Save the changes you've made to **index.jsp** by selecting **Command/Ctrl + S** on your keyboard.
 
-![image alt](DevOps-20)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-20.png)
 
 ---
 
@@ -319,7 +319,7 @@ sudo dnf install git -y
 git --version
 ```
 
-![image alt](DevOps-21)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-21.png)
 
 **GitHub** is a place for engineers to store and share their code and projects online. It's called GitHub because it uses Git to manage your projects' version history.
 
@@ -344,7 +344,7 @@ Nice, we're ready to set up a **new repository on GitHub**! To store our code us
 - Choose your visibility settings. We'd recommend selecting **Public** to make your repository available for the world to see.
 - Select **Create repository**.
 
-![image alt](DevOps-22)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-22.png)
 
 **Step - 2 : Commit and Push Your Changes to GithHub**
 
@@ -361,7 +361,7 @@ git init
 
 To start using Git for our project, we need to create a **local repository** on our computer. When we run `git init` inside a directory e.g. nextwork-web-project, it sets up the directory as a **local Git repository** which means changes are now tracked for version control. The local repository is where we use Git directly on our own EC2 instance. The edits we make in our local repo is only visible to us and isn't shared with anyone else yet. This is different to the GitHub repository, which is the remote/cloud version of our repo that others can see.
 
-![image alt](DevOps-23)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-23.png)
 
 This is just Git giving us a heads-up about naming our main branch **master** and suggesting that we can choose a different name like 'main' or 'development' if we want. You can think of Git branches as parallel versions or 'alternate universes' of the same project. For example, if you wanted to test a change to your code, you can set up a new branch that lets you diverge from the original/main version of your code (called master) so you can experiment with new features or test bug fixes safely. We won't create new branches in this project and we'll save all new changes directly to master, but it's best practice to make all changes in a separate branch and then merge them into master when they're ready.
 
@@ -436,7 +436,7 @@ Now that we know passwords won't work for authentication, we'll have to find a r
 - When Git asks for your password, **paste in your token instead**. Your terminal won't show your password for privacy reasons, so press **Enter** on your keyboard once you've pasted your token (even if you don't see it on screen).
 - Looks like Github recognises your token and pushed your changes to your repository.
 
-![image alt](DevOps-24)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-24.png)
 
 This message appears when you successfully push changes to a GitHub repository. It shows the progress of transferring objects (like files and commits), how many objects were processed, and tells you that your local branch is now tracking the remote branch after the push.
 
@@ -445,7 +445,7 @@ This message appears when you successfully push changes to a GitHub repository. 
 
 When you add, commit and push your changes, you might notice the terminal automatically sets two other things - your name and email address - before it asks for your GitHub username.
 
-![image alt](DevOps-25)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-25.png)
 
 Git needs author information for commits to track who made what change. If you don't set it manually, Git uses the system's default username, which might not accurately represent your identity in your project's version history.
 
@@ -470,13 +470,13 @@ So we've learnt how to link your EC2 instance's files with a cloud repo, now let
 <p>If you see this line in Github, that means your latest changes are getting pushed to your cloud repo :o</p>
 ```
 
-![image alt](DevOps-26)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-26.png)
 
 - Save your changes by pressing **Command/Ctrl + S** on your keyboard while keeping your **index.jsp** editor open.
 - Head back to your GitHub tab and click into the **src/main/webapp** folders to find index.jsp.
 - Click into **index.jsp** - have there been any updates to index.jsp in your GitHub repo?
 
-![image alt](DevOps-27)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-27.png)
 
 You won't see your changes in GitHub yet, because saving changes in your VSCode environment only updates your **local** repository. Remember that the local repository in VSCode is separate from your GitHub repository in the cloud. To make your changes visible in GitHub, you need to write commands that send (push) them from your local repository into your origin.
 
@@ -499,7 +499,7 @@ Right after you enter your username and token again, you can run `git config --g
 
 - Head back to your GitHub tab and refresh it - do you see your changes now?
 
-![image alt](DevOps-28)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-28.png)
 
 ---
 
@@ -544,7 +544,7 @@ CodeArtifact domain is like a folder that holds multiple repositories belonging 
 - You'll be taken to the repository's details page.
 - You should see a success message at the top of the page, telling us that the CodeArtifact repository `nextwork-devops-cicd` has been successfully created.
 
-![image alt](DevOps-29)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-29.png)
 
 **Step - 2 : Create and Attach an IAM Policy for CodeArtifact Access**
 
@@ -565,7 +565,7 @@ Export CodeArtifact authorization token
 - In the **Connection instructions** dialog, find **Step 3: Export a CodeArtifact authorization token....**
 - Copy the entire command in **Step 3**.
 
-![image alt](DevOps-30)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-30.png)
 
 **"Export a CodeArtifact authorization token for authorization to your repository from your preferred shell"** It actually just means you need to run the command in Step 3 to give your terminal a temporary password. That password will grant your development tools (i.e. Maven) access to your repositories in CodeArtifact. Maven uses this token whenever it needs to fetch something from your CodeArtifact repository.
 
@@ -573,7 +573,7 @@ Export CodeArtifact authorization token
 - Paste the copied command into the terminal and press **Enter** to run it.
 - Uhhh... looks like we got an error!
 
-![image alt](DevOps-31)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-31.png)
 
 That `Unable to locate credentials` error is actually a good security feature in action! Your EC2 instance is essentially saying, "I don't know who you are, so I can't let you access CodeArtifact." This happens because, by default, your EC2 instance **doesn't** have permission to access your other AWS services (including CodeArtifact). This is intentional - AWS follows the "principle of least privilege," meaning resources only get the **minimum** permissions they need to function.
 
@@ -623,7 +623,7 @@ The `"Resource": "*"` means these permissions apply to all relevant resources, w
 `Provides permissions to read from CodeArtifact. Created as a part of NextWork CICD Pipeline series`.
 - Review the **Summary** of your policy to ensure the permissions and details are correct.
 
-![image alt](DevOps-32)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-32.png)
 
 - Click the **Create policy** button to create the IAM policy.
 - After clicking **Create policy**, you should see a success message at the top of the IAM Policies page, telling us that the policy `codeartifact-nextwork-consumer-policy` has been successfully created.
@@ -662,7 +662,7 @@ Now that your EC2 instance has the necessary IAM role attached, let's re-run the
 - Re-run the same export token command from Step 3.
 - This command will retrieve a temporary authorization token for CodeArtifact and store it in an environment variable named `CODEARTIFACT_AUTH_TOKEN`.
 
-![image alt](DevOps-33)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-33.png)
 
 **Step -3 : Verify CodeArtifact Connection and See Packages in CodeArtifact**
 
@@ -684,19 +684,19 @@ Let's make sure everything is set up correctly by verifying the connection to ou
 </settings>
 ```
 
-![image alt](DevOps-34)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-34.png)
 
 - Go back to the CodeArtifact connection settings panel.
 - From the **Connection instructions** dialog, copy the XML code snippet from **Step 4: Add your server to the list of servers in your settings.xml**.
 
-![image alt](DevOps-35)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-35.png)
 
 The **servers** section is where your store your access details to the repositories you're connecting with your web app project. In this example, you've added your authentication token to access your local CodeArtifact repository.
 
 - Paste the code in the **settings.xml** file, in between the `<settings>` tags.
 - Let's copy the XML code snippet from **Step 5: Add a profile containing your repository to your settings.xml.**
 
-![image alt](DevOps-36)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-36.png)
 
 The **profiles** section is where you write a rulebook on when Maven should use which repository. We only have one package repository in this project, so our profiles section is more straightforward than other projects that might be pulling from multiple repositories! Our profiles section is telling Maven to go to the nextwork-packages repository to find the tools / packages needed to build your Java web app.
 
@@ -705,7 +705,7 @@ The **profiles** section is where you write a rulebook on when Maven should use 
 
 The **mirrors** section sets up backup locations that Maven can check if it can't find what it needs in the first local repository it goes to. The backup location that we'll set by default is... our CodeArtifact repository again. This means that for any repository requests (denoted by the asterisk * in the * line), Maven will redirect those requests to the same CodeArtifact repository since it's our only local repository. It might seem unnecessary now, but mirrors are great in complex scenarios and is a great fallback option to set up from the start!
 
-![image alt](DevOps-37)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-37.png)
 
 Save the `settings.xml` file.
 
@@ -724,7 +724,7 @@ mvn -s settings.xml complie
 -  You should see messages like `Downloading from nextwork-devops-cicd` telling us that Maven is downloading dependencies from your CodeArtifact repository. This is a good sign that Maven is using CodeArtifact to manage dependencies!
 -  If the compilation is successful and dependencies are downloaded from CodeArtifact, you'll see a `BUILD SUCCESS` message at the end of the Maven output.
 
-![image alt](DevOps-38)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-38.png)
 
 When you run `mvn -s settings.xml compile`, Maven first looks at your project's dependencies in the `pom.xml` file. Then, instead of downloading them directly from public repositories, it checks your CodeArtifact repository. If the dependency isn't already in CodeArtifact, it will fetch it from the upstream repository (Maven Central in our case), cache it in CodeArtifact, and then deliver it to your project. This process happens for each required dependency, ensuring that your build process is secure, controlled, and faster for subsequent builds when dependencies are already cached in CodeArtifact.
 
@@ -733,7 +733,7 @@ When you run `mvn -s settings.xml compile`, Maven first looks at your project's 
 -  If you don't see any packages in your repository listed yet, click the **refresh** button in the top right corner of the Packages pane.
 -  After refreshing, you should now see a list of Maven packages in your CodeArtifact repository.
 
-![image alt](DevOps-39)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-39.png)
 
 Those packages appearing in your CodeArtifact repository are proof that the entire system is working! Here's what happened behind the scenes: when you ran the Maven compile command, Maven checked your project's pom.xml file and determined which dependencies your application needs. It then requested these dependencies through CodeArtifact. Since this was the first time these dependencies were requested, CodeArtifact didn't have them yet. So it reached out to Maven Central (the upstream repository we configured), downloaded the packages, stored copies in your repository, and then provided them to Maven. Now that these packages are stored in your CodeArtifact repository, anyone else in your organization who needs the same dependencies will get them directly from your repository instead of from Maven Central. This gives you faster builds, more reliability, and the ability to control exactly which package versions your organization uses.
 
@@ -776,7 +776,7 @@ To allow CodeBuild to access your private GitHub repository, we need to establis
 -  Click on **Manage account credentials**.
 -  You will be taken to the **Manage default source credential** page.
 
-![image alt](DevOps-40)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-40.png)
 
 -  Ensure **GitHub App** is selected for **Credential type**.
 
@@ -805,7 +805,7 @@ By saving the GitHub App connection as the default credential, you make it easie
 
 -  Now, back in the **Create build project** page, in the **Source** section, you should see a success message in green: "Your account is successfully connected by using an AWS managed GitHub App."
 
-![image alt](DevOps-41)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-41.png)
 
 When we were taken to different pages to connect to GitHub, that was CodeBuild passing us to another Code service (called **AWS CodeConnections**) behind the scenes! AWS CodeConnections is like a secure bridge between AWS and your external code repositories. Instead of dealing with the headache of managing API keys, tokens (like GitHub's Personal Access Tokens!), or SSH credentials, CodeConnections handles all that authentication complexity for you - so you can focus on building your application.
 
@@ -828,14 +828,14 @@ If you'd like, you can open the left hand navigation menu, expand **Settings** a
 
 **Compute** sets up the servers that will actually run the commands and do the work for your project's build! Your project's build will run on **Amazon EC2** instances, which are more flexible and powerful than **AWS Lambda** functions. Lambda is optimized for speed and faster startup times. Our web app is fairly simple and doesn't require a lot of resources, but it's also built in **Java Corretto 8**, which is a language that's not supported by Lambda.
 
-![image alt](DevOps-42)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-42.png)
 
 -  Under **Environment**, for **Operating system**, select **Amazon Linux**.
 -  For **Runtime(s)**, select **Standard**.
 -  For **Image**, choose `aws/codebuild/amazonlinux-x86_64-standard:corretto8`.
 -  Keep **Image version** as **Always use the latest image for this runtime version**.
 
-![image alt](DevOps-43)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-43.png)
 
 -  Under **Service role**, select **New service role**.
 
@@ -897,7 +897,7 @@ Now that our CodeBuild project is fully configured, let's initiate our first bui
 -  You will be redirected to the build execution page.
 -  You should see the build status change to **In progress**.
 
-![image alt](DevOps-44)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-44.png)
 
 -  Wait for the build to complete.
 -  Oooo, looks like the build failed!
@@ -905,7 +905,7 @@ Now that our CodeBuild project is fully configured, let's initiate our first bui
 -  Select the **Phase details** tab to understand the failure.
 -  Aha, the `DOWNLOAD_SOURCE` phase has failed with the error message `YAML_FILE_ERROR: YAML file does not exist`.
 
-![image alt](DevOps-45)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-45.png)
 
 Good news - this is exactly what we expected to happen! This error simply means CodeBuild couldn't find the `buildspec.yml` file in your GitHub repository, which makes sense because we haven't created it yet. Without this file, CodeBuild doesn't know how to build your project. We'll create this file in the next steps.
 
@@ -915,7 +915,7 @@ Good news - this is exactly what we expected to happen! This error simply means 
 -  This confirms that CodeBuild is looking for **buildspec.yml** in the root directory of our web app's `nextwork-web-project` code repository... we haven't created that file yet!
 -  In fact, let's check our GitHub repository. Select the **Repository** link in your CodeBuild project.
 
-![image alt](DevOps-46)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-46.png)
 
 -  Welcome back to your GitHub repo!
 -  As you might've noticed, there's no `buildspec.yml` file - it should be in the root of your web app repository 🙈 Let's create it now.
@@ -924,12 +924,12 @@ Good news - this is exactly what we expected to happen! This error simply means 
 -  Open your `nextwork-web-project` folder.
 -  Select **Ok**.
 
-![image alt](DevOps-47)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-47.png)
 
 -  In VS Code, in the Explorer pane, create a new file on the project root (`nextwork-web-project`).
 -  Enter `buildspec.yml` as the file name.
 
-![image alt](DevOps-48)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-48.png)
 
 -  Paste the following code for buildspec.yml:
 
@@ -959,7 +959,7 @@ artifacts:
   discard-paths: no
 ```
 
-![image alt](DevOps-49)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-49.png)
 
 -  In the `buildspec.yml` file:
     -  Replace the placeholder AWS Account ID `123456789012` with your actual AWS Account ID.
@@ -986,7 +986,7 @@ git remote set-url origin https://<YOUR_GITHUB_USERNAME>@github.com/<YOUR_GITHUB
   -  Make sure to replace <YOUR_GITHUB_USERNAME> with your GitHub username and <YOUR_REPOSITORY_NAME> with your repository name.
   -  Then try git push again and enter your GitHub PAT when prompted for the password.
 
-![image alt](DevOps-50)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-50.png)
 
 We need to push our `buildspec.yml` file to GitHub because CodeBuild doesn't look inside your local computer for build instructions - it looks in your GitHub repository. When CodeBuild connects to your GitHub repo, it first looks for this special file. Without it, CodeBuild has no idea what to do with your code. By pushing the file to GitHub, we're making sure our instructions travel alongside our code.
 
@@ -1006,7 +1006,7 @@ Now that we've fixed our CodeBuild setup, let's re-run the build process. We'll 
 -  Check the **Phase details** tab again after this retry.
 -  You will likely see that the `DOWNLOAD_SOURCE` phase succeeded this time, but other phases might have failed!
 
-![image alt](DevOps-51)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-51.png)
 
 This error typically means CodeBuild still can't access the `settings.xml` file. This usually happens because our CodeBuild service role **doesn't have permission to access CodeArtifact**, which is needed to download project dependencies.
 
@@ -1019,7 +1019,7 @@ This error typically means CodeBuild still can't access the `settings.xml` file.
 -  Click on the **Add permissions** button.
 -  Choose **Attach policies**.
 
-![image alt](DevOps-52)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-52.png)
 
 -  In the **Filter policies** search bar, type `codeartifact-nextwork-consumer-policy`.
 -  Check the checkbox next to the policy named `codeartifact-nextwork-consumer-policy`.
@@ -1107,7 +1107,7 @@ CloudFormation template is creating a:
 
 By defining networking resources in the template, we're not just launching an EC2 instance, but creating a complete, secure, and configurable infrastructure that can be easily replicated or modified. This is an especially good idea for EC2 instances that are hosting web apps, because they have more complex needs like connecting with multiple databases and controlling both public and private network traffic.
 
-![image alt](DevOps-53)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-53.png)
 
 -  Next, you can also check the **Events** tab.
 -  You can watch your CloudFormation stack's events in real-time in the **Events** tab - just keep refreshing it!
@@ -1128,7 +1128,7 @@ Scripts are essentially text files filled with commands that you'd normally type
 -  Inside the `scripts` folder, create a new file.
 -  Let's name the file `install_dependencies.sh`
 
-![image alt](DevOps-54)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-54.png)
 
 -  Add the following content to `install_dependencies.sh`:
 
@@ -1149,7 +1149,7 @@ sudo cat << EOF > /etc/httpd/conf.d/tomcat_manager.conf
 EOF
 ```
 
-![image alt](DevOps-55)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-55.png)
 
 `install_dependencies.sh` script sets up all the software needed to run our website by installing programs (called Tomcat and Apache) that handle internet traffic and host our application. It then creates special settings that let these programs to work together, making our website accessible to visitors on the internet.
 
@@ -1166,7 +1166,7 @@ sudo systemctl start httpd.service
 sudo systemctl enable httpd.service
 ```
 
-![image alt](DevOps-56)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-56.png)
 
 This script starts both **Tomcat** (our Java application server) and **Apache** (our web server) and makes sure they'll restart automatically if the EC2 instance ever reboots.
 
@@ -1186,7 +1186,7 @@ sudo systemctl stop tomcat.service
 fi
 ```
 
-![image alt](DevOps-57)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-57.png)
 
 This script safely stops web server services by first checking if they're running. It uses pgrep to check for running processes of Apache (httpd) and Tomcat, and only attempts to stop the services if they are actually active. We check if the server is running first because trying to stop something that's not running can cause errors that might interrupt our deployment.
 
@@ -1220,7 +1220,7 @@ hooks:
       runas: root
 ```
 
-![image alt](DevOps-58)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-58.png)
 
 `appspec.yml` file is essentially the instruction manual for CodeDeploy. Each phase in the appspec.yml file is a CodeDeploy lifecycle event. Lifecycle events are like the chapters in your deployment story - predefined points where you can hook in custom scripts to perform specific actions. They're the key to customizing exactly how your application gets deployed.
 
@@ -1236,7 +1236,7 @@ artifacts:
   discard-paths: no
 ```
 
-![image alt](DevOps-59)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-59.png)
 
 The artifacts section we just edited is particularly important - it's telling CodeBuild: "After you build the app, make sure to include these additional files in the final package." We're adding our `appspec.ym`l and `scripts` folder because CodeDeploy will need them to properly deploy the application. Without them, CodeDeploy wouldn't know what to do with our compiled code!
 
@@ -1248,7 +1248,7 @@ The artifacts section we just edited is particularly important - it's telling Co
 -  Check the output of `git push` to confirm that your changes are pushed successfully.
 -  Head to your GitHub repository in the browser. Let's check that the `scripts` folder and `appspec.yml` file are in your repository!
 
-![image alt](DevOps-60)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-60.png)
 
 **Step - 3 : Set Up CodeDeploy**
 
@@ -1272,7 +1272,7 @@ Choosing the right platform depends on how your application is built. Each has i
 -  That's it! Select **Create application**.
 -  Wait for the success message that the application **nextwork-devops-cicd** is created.
 
-![image alt](DevOps-61)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-61.png)
 
 -  Select **Create deployment group**.
 
@@ -1300,7 +1300,7 @@ The power of deployment groups is that you can have multiple groups within the s
 -  Click on the plus button to take a look at the permissions this grants. There are many actions that we're allowing in this policy!
 -  Phew, this saves us the time from defining all these permission policies ourselves.
 
-![image alt](DevOps-62)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-62.png)
 
 -  Select **Next**.
 -  Expand the `AWSCodeDeployRole` policy to review its permissions.
@@ -1341,12 +1341,12 @@ We are using tags here so that CodeDeploy can identify the target EC2 instances 
 
 Check the line below your tag settings - you might notice that **1 unique matched instance** is found.
 
-![image alt](DevOps-63)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-63.png)
 
 -  Click **Click here for details** to view the matched instance.
 -  You'll see an EC2 instance called **NextWorkCodeDeployEC2Stack::WebServer** - that's the EC2 instance we launched from our CloudFormation template. This confirms to us that the web app will be deployed onto that instance instance.
 
-![image alt](DevOps-64)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-64.png)
 
 -  Now let's head back to your CodeDeploy **Deployment group** set up.
 -  Under **Agent configuration with AWS Systems Manager**, select **Now and schedule updates** and **Basic scheduler** with **14 Days**.
@@ -1361,7 +1361,7 @@ Deployment settings help you control how quickly you'd like to roll out your app
 
 For production systems with hundreds of instances, these settings become crucial. Imagine updating your banking app on all servers simultaneously vs. trying it on 10% first to make sure customers can still access their accounts! But since we only have one instance in our project, the cautious approach doesn't offer much benefit. We're using `AllAtOnce` in this project because we only have one instance and we're learning - speed is more important than caution here!
 
-![image alt](DevOps-65)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-65.png)
 
 -  Deselect **Enable load balancing**.
 
@@ -1385,7 +1385,7 @@ CodeDeploy then orchestrates the entire process - stopping services, copying fil
 
 -  Some of this deployment configuration is already pre-filled for us.
 
-![image alt](DevOps-66)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-66.png)
 
 -  Under **Revision type**, make sure **My application is stored in Amazon S3** is selected. That's because our deployment artifact is inside an S3 bucket!
 -  Head back to your S3 bucket called `nextwork-devops-cicd`.
@@ -1396,7 +1396,7 @@ CodeDeploy then orchestrates the entire process - stopping services, copying fil
 
 Revision location is the place where CodeDeploy looks to find your application's build artifacts. We're using the S3 bucket that's storing our WAR file, so CodeDeploy knows where to find the latest version of our web app it's deploying to the deployment EC2 instances!
 
-![image alt](DevOps-67)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-67.png)
 
 -  Next, we'll leave **Additional deployment behavior settings** as default.
 
@@ -1421,7 +1421,7 @@ These settings give you extra flexibility when you need to handle special cases 
 -  Once your second build is a success, **return to CodeDeploy and retry the deployment**.
 -  Wait until the deployment status says **Success**.
 
-![image alt](DevOps-69)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-69.png)
 
 -  Select the **Instance ID** in the **Deployment lifecycle events** panel. This takes you to the deployment EC2 instance you launched with CloudFormation.
 -  Get the **Public IPv4 DNS** of your EC2 instance from the EC2 console.
@@ -1429,7 +1429,7 @@ These settings give you extra flexibility when you need to handle special cases 
 -  It might take a minute or two for the application to become fully accessible after deployment.
 -  WOOOHOOO! **Welcome to your application**!
 
-![image alt](DevOps-70)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps-1/blob/5c3ed52a2d1eb233458216cb0f097061f6b8ac1c/Images/DevOps-70.png)
 
 If you don't see the application! Check whether your URL is using `https` - if it is, change it to `http` in the browser. This is because the EC2 instance's security group lets in connections on port 80 (HTTP) but not port 443 (HTTPS).
 
