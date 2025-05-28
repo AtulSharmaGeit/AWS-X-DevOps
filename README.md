@@ -4,12 +4,12 @@ In this project I'll build from scratch a CI/CD pipeline that automates the buil
 
 ---
 ##  Table Of Content
--  [Set Up a Web App in the Cloud](#Set-Up-a-Web-App-in-the-Cloud)
--  [Connect a GitHub Repo with AWS](Connect-a-GitHub-Repo-with-AWS)
--  [Secure Packages with CodeArtifact](Secure-Packages-with-CodeArtifact)
--  [Continuous Integration with CodeBuild](Continuous-Integration-with-CodeBuild)
--  [Deploy a Web App with CodeDeploy](Deploy-a-Web-App-with-CodeDeploy)
--  [Build a CI/CD Pipeline with AWS](Build-a-CI/CD-Pipeline-with-AWS)
+-  [Set Up a Web App in the Cloud](#set-up-a-web-app-in-the-cloud)
+-  [Connect a GitHub Repo with AWS](#connect-a-github-repo-with-aws)
+-  [Secure Packages with CodeArtifact](#secure-packages-with-codeartifact)
+-  [Continuous Integration with CodeBuild](#continuous-integration-with-codebuild)
+-  [Deploy a Web App with CodeDeploy](#deploy-a-web-app-with-codedeploy)
+-  [Build a CI/CD Pipeline with AWS](#build-a-ci/cd-pipeline-with-aws)
 
 ---
 ##  Set Up a Web App in the Cloud
