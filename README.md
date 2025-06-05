@@ -1472,3 +1472,340 @@ By choosing to **build a custom pipeline**, we get to define each stage and acti
 ![image alt](DevOps-71)
 
 Click **Next**.
+
+**Configure Pipeline Settings**
+-  Name our pipeline `nextwork-devops-cicd`
+
+![image alt](DevOps-72)
+
+-  Under **Execution mode**, select **Superseded**.
+
+**Execution mode** determines how CodePipeline handles multiple runs of the same pipeline.
+1. In **Superseded** mode, if a new pipeline execution is triggered while another execution is already in progress, the newer execution will immediately take over and cancel the older one. This is perfect for making sure only the latest code changes are processed, which is exactly what we want for our CI/CD pipeline!
+2. In **Queued** mode, executions are processed one after another. If a pipeline is already running, any new executions will wait in a queue until the current
+execution finishes.
+3. **Parallel** mode allows multiple executions to run at the same time, completely independently of each other. This can speed up the overall processing time if we have multiple branches or code changes that can be built and deployed concurrently.
+
+![image alt](DevOps-73)
+
+-  Under **Service role**, select **New service role**. Keep the default role name.
+
+A **service role** is a special type of IAM role that AWS services like CodePipeline use to perform actions on our behalf. It's like giving CodePipeline permission to access other AWS resources it needs to run our pipeline, such as S3 buckets for storing artifacts or CodeBuild for building our code.
+
+![image alt](DevOps-74)
+
+-  Expand **Advanced settings**.
+-  Leave the default settings for **Artifact store**, **Encryption key**, and **Variables**.
+
+**Artifact store**: Without an artifact store, there's no way for our build outputs to be passed to deployment! This S3 bucket is where CodePipeline automatically saves the files created at each stage - like our source code from GitHub and the build artifacts from CodeBuild - making them available to the next stage in our pipeline.
+
+**Encryption key**: By default, CodePipeline encrypts everything in our artifact store using AWS managed keys. This keeps our code and build artifacts secure while they're being stored and transferred between stages. For most projects, this default encryption is perfectly sufficient.
+
+**Variables**: Right now we might be manually tracking information like version numbers or build timestamps. Pipeline variables solve this by letting us pass dynamic values between different stages automatically. While we won't use variables in this project, they become essential in more complex pipelines when we need information generated in one stage (like a build number) to be available in another stage (like deployment).
+
+![image alt](DevOps-75)
+
+-  Click **Next**.
+
+![image alt](DevOps-76)
+
+We've configured the basic settings for our pipeline. Let's move on to setting up the Source stage.
+
+**Step - 2 : Configuring the Source, Build and Deploy Stages**
+
+Now we're ready to pull together all the different parts of our CI/CD architecture!
+
+**Source Stage**
+
+Now, let's configure the Source stage of our pipeline. This is where we'll tell CodePipeline where to fetch our source code from.
+-  In the **Source provider** dropdown, select **GitHub (via GitHub App)**.
+
+![image alt](DevOps-77)
+
+The **Source stage** is the very first step in any CI/CD pipeline. Its job is simple but crucial: it fetches the latest version of our code from our chosen repository whenever there are updates. Without this stage, our pipeline would have nothing to build or deploy. CodePipeline supports various source providers, but for this project, we're using GitHub because that's where our web app's code is stored.
+
+-  Under **Connection**, select our existing GitHub connection
+
+![image alt](DevOps-78)
+
+-  Under **Repository name**, select `nextwork-web-project`.
+-  Under **Default branch**, select `master`.
+
+In Git, a **branch** is like a parallel timeline of our project. It allows us to work on new features or bug fixes without affecting the main codebase. The master branch is typically considered the main branch, representing the stable, production-ready code. By specifying the master branch as the default branch, we're telling CodePipeline to monitor this branch for changes and trigger the pipeline whenever there's a commit to it.
+
+![image alt](DevOps-79)
+
+-  Under **Output artifact format**, leave it as **CodePipeline default**.
+
+**Output artifact format** determines how CodePipeline packages the source code it fetches from GitHub.
+1. **CodePipeline default**: This option packages the source code as a ZIP file, which is efficient for most deployment scenarios. It does not include Git metadata about the repository.
+2. **Full clone**: This option provides a full clone of the Git repository as an artifact, including Git history and metadata. This is useful if our build process requires Git history, but it results in a larger artifact size.
+
+-  Make sure that **Webhook events** is checked under **Detect change events**.
+
+![image alt](DevOps-80)
+
+**Webhook events** let CodePipeline automatically start our pipeline whenever code is pushed to our specified branch in GitHub. This is what makes our pipeline truly "continuous" – it reacts to code changes in real-time!
+
+Webhooks are like digital notifications. When we enable webhook events, CodePipeline sets up a webhook in our GitHub repository. This webhook is configured to listen for specific events, such as code pushes to the `master` branch. Whenever we push code to the `master` branch, GitHub sends a webhook event (a notification) to CodePipeline. CodePipeline then automatically starts a new pipeline execution in response to this event. It's a seamless way to automate 
+our CI/CD process!
+
+-  Click **Next**.
+
+We've set up the **Source stage** of our pipeline. We're now ready to set up the Build stage.
+
+**Build stage**
+
+The **Build stage** is where our source code gets transformed into a deployable build artifact. We'll tell CodePipeline to use AWS CodeBuild to compile and package our web application.
+-  In the **Build provider** dropdown, select **AWS CodeBuild** from **Other build providers**.
+
+![image alt](DevOps-81)
+
+-  Under **Project name**, select our existing CodeBuild project.
+-  In the **Project name** dropdown, search for and select `nextwork-devops-cicd`.
+-  Leave the default settings for **Environment variables**, **Build type**, and **Region**.
+
+![image alt](DevOps-82)
+
+-  Under **Input artifacts**, **SourceArtifact** should be selected by default.
+
+**Input artifacts** are the outputs from the previous stage that are used as inputs for the current stage. In our Build stage, we're using SourceArtifact, which is the ZIP file containing our source code that was outputted by the Source stage.
+
+-  Click **Next**.
+
+We've configured the **Build stage** of our pipeline. We're now ready to move on to the next stage.
+
+**Skip Test Stage**
+-  On the **Add test stage** page, click **Skip test stage**.
+
+The **Test stage** is where we automate testing our application. This can include different types of tests, likes:
+1. **Unit tests**: Testing individual components or functions of our code.
+2. **Integration tests**: Testing how different parts of our application work together.
+3. **UI tests**: Testing the user interface to make sure it works correctly.
+
+The Test stage helps ensure the quality of our code and catch any issues before they reach production. While we're skipping it for this project to simplify things, in real-world scenarios, a Test stage is essential for maintaining software quality and reliability.
+
+**Deploy Stage**
+-  In the **Deploy provider** dropdown, select **AWS CodeDeploy**.
+
+![image alt](DevOps-83)
+
+The **Deploy stage** is the final step in our pipeline. It's responsible for taking the application artifacts (the output from the Build stage) and deploying them to the target environment, which in our case is an EC2 instance.
+
+-  Under **Input artifacts**, **BuildArtifact** should be selected by default.
+-  Under **Application name**, select our existing CodeDeploy application
+
+![image alt](DevOps-84)
+
+-  Under **Deployment group**, select our existing CodeDeploy deployment group.
+
+![image alt](DevOps-85)
+
+-  Check the box for **Configure automatic rollback on stage failure**.
+
+**Automatic rollback** is a safety net for our deployments. By enabling it, we're telling CodePipeline that if the Deploy stage fails for any reason, it should automatically revert to the last successful deployment. This helps minimize downtime and ensures that our application remains stable, even if a new deployment goes wrong.
+
+-  Click **Next**.
+
+Awesome! We've configured the Deploy stage of our pipeline. We're just one step away from creating your pipeline.
+
+**Step - 3 : Run Our Pipeline!**
+
+Let's watch our pipeline run for the first time! This will help us verify that everything is working correctly.
+
+**Review Our Pipeline**
+-  On the **Review** page, take a moment to review all the settings we've configured for our pipeline.
+
+![image alt](DevOps-86)
+
+![image alt](DevOps-87)
+
+![image alt](DevOps-88)
+
+-  Once we've reviewed all the settings and confirmed they are correct, click **Create pipeline**.
+
+**Run Our Pipeline**
+-  After clicking **Create pipeline**, we will be taken to the pipeline details page.
+-  Note the pipeline diagram at the top of the page.
+
+![image alt](DevOps-89)
+
+-  CodePipeline automatically starts executing the pipeline as soon as it's created.
+-  We can see the progress of each stage in the pipeline diagram. The stages will transition from grey to blue (in progress) to green (success) as the pipeline executes.
+
+As our pipeline runs, each stage will display a status:
+1. **Grey**: Stage has not started yet.
+2. **Blue**: Stage is currently in progress.
+3. **Green**: Stage has completed successfully.
+4. **Red**: Stage has failed.
+
+-  Wait for the pipeline execution to complete. We can monitor the status of each stage in the pipeline diagram.
+-  To see more details about each execution, click on the **Executions** tab above the pipeline diagram.
+
+**Pipeline executions** represent each instance of our pipeline running. Every time our pipeline is triggered (either manually or automatically by a webhook), a new execution is created. Each execution has a unique ID and shows the status and details of each stage in that particular run.
+
+![image alt](DevOps-90)
+
+-  To view details of a specific stage execution, click on the **Stage ID** link in the **Executions** tab. For example, click on the **Source** stage ID to see details about the source code retrieval.
+
+![image alt](DevOps-91)
+
+-  Wait for all stages in the pipeline diagram to turn **green**, which means our pipeline is all set up using the latest code change!
+
+![image alt](DevOps-92)
+
+
+**Step - 4 : Test Our Pipeline!**
+
+It's time for the ULTIMATE test for this project... let's see how CodePipeline handles a code change! Testing with a code change will confirm that our pipeline is automatically triggered and deploys our updates.
+
+-  Open our web app code in our local IDE (e.g., VS Code).
+-  Open the `index.jsp` file located in `src/main/webapp/`.
+-  Add a new line in the `<body>` section of `index.jsp`:
+
+```html
+<p>If you see this line, that means your latest changes are automatically deployed into production by CodePipeline!</p>
+```
+
+![image alt](DevOps-93)
+
+-  Save the `index.jsp` file.
+-  Open our terminal and navigate to our local git repository for the web app.
+-  Commit and push the changes to our GitHub repository using the following commands:
+
+```bash
+git add .
+git commit -m "Update index.jsp with a new line to test CodePipeline"
+git push origin master
+```
+
+![image alt](DevOps-94)
+
+-  Go back to the CodePipeline console and watch our pipeline react to the code change.
+-  We should see a new execution starting automatically after we push the changes to GitHub.
+
+![image alt](DevOps-95)
+
+-  Click on the **Source** stage box in the pipeline diagram.
+-  Scroll down in the stage details panel to see the commit message.
+
+![image alt](DevOps-96)
+
+-  Click on the **Commit ID** link in the Source stage details panel.
+
+![image alt](DevOps-97)
+
+-  This should open the commit page in our GitHub repository in a new browser tab.
+-  Verify that the commit page shows the code changes we just pushed (the new line we added to index.jsp)!
+
+![image alt](DevOps-98)
+
+-  Wait for the **Build** and **Deploy** stages to complete successfully (turn green) in the CodePipeline console.
+
+![image alt](DevOps-99)
+
+**Verify Automated Deployment**
+
+Let's try accessing the web app to see our code change live!
+
+![image alt](DevOps-100)
+
+-  To find the Public IPv4 DNS, in the CodePipeline console, click on the **Deploy** stage, then click on the **CodeDeploy** link in the details panel.
+-  In the CodeDeploy console, scroll down to **Deployment lifecycle events** and click on the **Instance ID**.
+-  On the EC2 instance summary page, copy the **Public IPv4 DNS**.
+
+![image alt](DevOps-101)
+
+-  Paste the copied Public IPv4 DNS in a new browser tab and press **Enter**.
+-  We should see our web application with the new line we added:
+
+![image alt](DevOps-102)
+
+This confirms that our latest code changes were automatically deployed by CodePipeline.
+
+Our CI/CD pipeline is now automatically building and deploying our web application whenever we push changes to GitHub.
+
+**Step -5 : Delete our resources**
+
+Now that we've successfully built, tested, and rolled back our CI/CD pipeline, it's time to clean up the AWS resources we created to avoid incurring any unnecessary costs.
+
+**CloudFormation**
+-  Head to the `CloudFormation` console.
+-  Select our deployment EC2 stack.
+-  Click **Delete**.
+-  Confirm the deletion by clicking **Delete stack**.
+
+**CodePipeline**
+-  Head to the `CodePipeline` console.
+-  Select **Pipelines** from the left-hand menu.
+-  Select the pipeline named `nextwork-devops-cicd`.
+-  Select **Delete**.
+-  Type `delete` in the confirmation field.
+-  Select **Delete**.
+
+**CodeDeploy**
+-  Head to the `CodeDeploy` console.
+-  Select **Applications** from the left hand menu.
+-  Select the `nextwork-devops-cicd` application.
+-  Click **Delete application**.
+-  Confirm the deletion by typing `delete` and clicking **Delete**.
+
+**CodeBuild**
+-  Head to the `CodeBuild` console.
+-  Select **Build projects** from the left hand menu.
+-  Select the `nextwork-devops-cicd` project.
+-  Click **Delete build project**.
+-  Confirm the deletion by typing `delete` and clicking **Delete**.
+
+**CodeArtifact**
+-  Head to the `CodeArtifact` console.
+-  Select **Repositories** from the left hand menu.
+-  Select the `nextwork-devops-cicd` repository.
+-  Click **Delete repository**.
+-  Confirm the deletion by typing `delete` and clicking **Delete repository**.
+-  Select **Domains** from the left hand menu.
+-  Select the `nextwork` domain.
+-  Click **Delete domain**.
+-  Confirm the deletion by typing `delete` and clicking **Delete domain**.
+
+**CodeConnection**
+-  Expand the **Settings** arrow at the bottom of the left hand navigation panel.
+-  Select **Connections**.
+-  Select our connection.
+-  Select **Delete**
+-  Confirm the deletion by typing `delete` and clicking **Delete**.
+
+**IAM Roles and Policies**
+-  Head to the `IAM` console.
+-  Select **Roles** from the left hand menu.
+-  Search for and delete the following roles:
+    -  `ec2-instance-nextwork-cicd`
+    -  `aws-codedeploy-role`
+    -  `codebuild-nextwork-devops-cicd-service-role`
+    -  `AWSCodePipelineServiceRole`
+-  Select **Policies** from the left hand menu.
+-  Search for and delete the following polcies:
+    -  `codeartifact-nextwork-consumer-policy`
+    -  `CodeBuildBasePolicy-nextwork-devops-cicd`
+    -  `CodeBuildCloudWatchLogsPolicy-nextwork-devops`
+    -  `CodeBuildCodeConnectionsSourceCredentialsPolicy-nextwork`
+    -  `AWSCodePipelineServiceRole`
+ 
+**Development EC2 instance**
+-  Head to the `EC2` console.
+-  Select **Instances** from the left hand menu.
+-  Select the `nextwork-devops-yourname instance`.
+-  Click **Instance state**, then **Terminate instance**.
+-  Confirm termination by clicking **Terminate**.
+
+**S3 bucket**
+-  Head to the `S3` console.
+-  Select **Buckets** from the left hand menu.
+-  Select the `nextwork-devops-cicd` S3 bucket (our build artifacts bucket)
+-  Click **Empty bucket**.
+-  Confirm emptying the bucket by typing **permanently delete** and clicking **Empty bucket**.
+-  Once the bucket is empty, select the bucket again and click **Delete bucket**.
+-  Confirm deletion by typing the bucket name and clicking **Delete bucket**.
+-  Also delete the bucket created by **CloudFormation**!
+    -  CloudFormation automatically creates a new bucket to store templates we upload when we create a new stack. The bucket's name should start with `cf`.
+    -  CodePipeline also creates a new bucket to store artifacts created in the pipeline. The bucket's name should start with `codepipeline`.
