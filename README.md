@@ -1469,14 +1469,14 @@ Using CodePipeline makes sure our deployments are consistent, reliable and happe
 
 By choosing to **build a custom pipeline**, we get to define each stage and action step-by-step. This gives us a deeper understanding of how CodePipeline works and allows us to tailor the pipeline precisely to our needs. For learning purposes, building a custom pipeline from scratch is the best way to go !
 
-![image alt](DevOps-71)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-71.png)
 
 Click **Next**.
 
 **Configure Pipeline Settings**
 -  Name our pipeline `nextwork-devops-cicd`
 
-![image alt](DevOps-72)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-72.png)
 
 -  Under **Execution mode**, select **Superseded**.
 
@@ -1486,13 +1486,13 @@ Click **Next**.
 execution finishes.
 3. **Parallel** mode allows multiple executions to run at the same time, completely independently of each other. This can speed up the overall processing time if we have multiple branches or code changes that can be built and deployed concurrently.
 
-![image alt](DevOps-73)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-73.png)
 
 -  Under **Service role**, select **New service role**. Keep the default role name.
 
 A **service role** is a special type of IAM role that AWS services like CodePipeline use to perform actions on our behalf. It's like giving CodePipeline permission to access other AWS resources it needs to run our pipeline, such as S3 buckets for storing artifacts or CodeBuild for building our code.
 
-![image alt](DevOps-74)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-74.png)
 
 -  Expand **Advanced settings**.
 -  Leave the default settings for **Artifact store**, **Encryption key**, and **Variables**.
@@ -1503,11 +1503,11 @@ A **service role** is a special type of IAM role that AWS services like CodePipe
 
 **Variables**: Right now we might be manually tracking information like version numbers or build timestamps. Pipeline variables solve this by letting us pass dynamic values between different stages automatically. While we won't use variables in this project, they become essential in more complex pipelines when we need information generated in one stage (like a build number) to be available in another stage (like deployment).
 
-![image alt](DevOps-75)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-75.png)
 
 -  Click **Next**.
 
-![image alt](DevOps-76)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-76.png)
 
 We've configured the basic settings for our pipeline. Let's move on to setting up the Source stage.
 
@@ -1520,20 +1520,20 @@ Now we're ready to pull together all the different parts of our CI/CD architectu
 Now, let's configure the Source stage of our pipeline. This is where we'll tell CodePipeline where to fetch our source code from.
 -  In the **Source provider** dropdown, select **GitHub (via GitHub App)**.
 
-![image alt](DevOps-77)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-77.png)
 
 The **Source stage** is the very first step in any CI/CD pipeline. Its job is simple but crucial: it fetches the latest version of our code from our chosen repository whenever there are updates. Without this stage, our pipeline would have nothing to build or deploy. CodePipeline supports various source providers, but for this project, we're using GitHub because that's where our web app's code is stored.
 
 -  Under **Connection**, select our existing GitHub connection
 
-![image alt](DevOps-78)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-78.png)
 
 -  Under **Repository name**, select `nextwork-web-project`.
 -  Under **Default branch**, select `master`.
 
 In Git, a **branch** is like a parallel timeline of our project. It allows us to work on new features or bug fixes without affecting the main codebase. The master branch is typically considered the main branch, representing the stable, production-ready code. By specifying the master branch as the default branch, we're telling CodePipeline to monitor this branch for changes and trigger the pipeline whenever there's a commit to it.
 
-![image alt](DevOps-79)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-79.png)
 
 -  Under **Output artifact format**, leave it as **CodePipeline default**.
 
@@ -1543,7 +1543,7 @@ In Git, a **branch** is like a parallel timeline of our project. It allows us to
 
 -  Make sure that **Webhook events** is checked under **Detect change events**.
 
-![image alt](DevOps-80)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-80.png)
 
 **Webhook events** let CodePipeline automatically start our pipeline whenever code is pushed to our specified branch in GitHub. This is what makes our pipeline truly "continuous" – it reacts to code changes in real-time!
 
@@ -1559,13 +1559,13 @@ We've set up the **Source stage** of our pipeline. We're now ready to set up the
 The **Build stage** is where our source code gets transformed into a deployable build artifact. We'll tell CodePipeline to use AWS CodeBuild to compile and package our web application.
 -  In the **Build provider** dropdown, select **AWS CodeBuild** from **Other build providers**.
 
-![image alt](DevOps-81)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-81.png)
 
 -  Under **Project name**, select our existing CodeBuild project.
 -  In the **Project name** dropdown, search for and select `nextwork-devops-cicd`.
 -  Leave the default settings for **Environment variables**, **Build type**, and **Region**.
 
-![image alt](DevOps-82)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-82.png)
 
 -  Under **Input artifacts**, **SourceArtifact** should be selected by default.
 
@@ -1588,18 +1588,18 @@ The Test stage helps ensure the quality of our code and catch any issues before 
 **Deploy Stage**
 -  In the **Deploy provider** dropdown, select **AWS CodeDeploy**.
 
-![image alt](DevOps-83)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-83.png)
 
 The **Deploy stage** is the final step in our pipeline. It's responsible for taking the application artifacts (the output from the Build stage) and deploying them to the target environment, which in our case is an EC2 instance.
 
 -  Under **Input artifacts**, **BuildArtifact** should be selected by default.
 -  Under **Application name**, select our existing CodeDeploy application
 
-![image alt](DevOps-84)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-84.png)
 
 -  Under **Deployment group**, select our existing CodeDeploy deployment group.
 
-![image alt](DevOps-85)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-85.png)
 
 -  Check the box for **Configure automatic rollback on stage failure**.
 
@@ -1616,11 +1616,11 @@ Let's watch our pipeline run for the first time! This will help us verify that e
 **Review Our Pipeline**
 -  On the **Review** page, take a moment to review all the settings we've configured for our pipeline.
 
-![image alt](DevOps-86)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-86.png)
 
-![image alt](DevOps-87)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-87.png)
 
-![image alt](DevOps-88)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-88.png)
 
 -  Once we've reviewed all the settings and confirmed they are correct, click **Create pipeline**.
 
@@ -1628,7 +1628,7 @@ Let's watch our pipeline run for the first time! This will help us verify that e
 -  After clicking **Create pipeline**, we will be taken to the pipeline details page.
 -  Note the pipeline diagram at the top of the page.
 
-![image alt](DevOps-89)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-89.png)
 
 -  CodePipeline automatically starts executing the pipeline as soon as it's created.
 -  We can see the progress of each stage in the pipeline diagram. The stages will transition from grey to blue (in progress) to green (success) as the pipeline executes.
@@ -1644,15 +1644,15 @@ As our pipeline runs, each stage will display a status:
 
 **Pipeline executions** represent each instance of our pipeline running. Every time our pipeline is triggered (either manually or automatically by a webhook), a new execution is created. Each execution has a unique ID and shows the status and details of each stage in that particular run.
 
-![image alt](DevOps-90)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-90.png)
 
 -  To view details of a specific stage execution, click on the **Stage ID** link in the **Executions** tab. For example, click on the **Source** stage ID to see details about the source code retrieval.
 
-![image alt](DevOps-91)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-91.png)
 
 -  Wait for all stages in the pipeline diagram to turn **green**, which means our pipeline is all set up using the latest code change!
 
-![image alt](DevOps-92)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-92.png)
 
 
 **Step - 4 : Test Our Pipeline!**
@@ -1667,7 +1667,7 @@ It's time for the ULTIMATE test for this project... let's see how CodePipeline h
 <p>If you see this line, that means your latest changes are automatically deployed into production by CodePipeline!</p>
 ```
 
-![image alt](DevOps-93)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-93.png)
 
 -  Save the `index.jsp` file.
 -  Open our terminal and navigate to our local git repository for the web app.
@@ -1679,47 +1679,47 @@ git commit -m "Update index.jsp with a new line to test CodePipeline"
 git push origin master
 ```
 
-![image alt](DevOps-94)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-94.png)
 
 -  Go back to the CodePipeline console and watch our pipeline react to the code change.
 -  We should see a new execution starting automatically after we push the changes to GitHub.
 
-![image alt](DevOps-95)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-95.png)
 
 -  Click on the **Source** stage box in the pipeline diagram.
 -  Scroll down in the stage details panel to see the commit message.
 
-![image alt](DevOps-96)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-96.png)
 
 -  Click on the **Commit ID** link in the Source stage details panel.
 
-![image alt](DevOps-97)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-97.png)
 
 -  This should open the commit page in our GitHub repository in a new browser tab.
 -  Verify that the commit page shows the code changes we just pushed (the new line we added to index.jsp)!
 
-![image alt](DevOps-98)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-98.png)
 
 -  Wait for the **Build** and **Deploy** stages to complete successfully (turn green) in the CodePipeline console.
 
-![image alt](DevOps-99)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-99.png)
 
 **Verify Automated Deployment**
 
 Let's try accessing the web app to see our code change live!
 
-![image alt](DevOps-100)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-100.png)
 
 -  To find the Public IPv4 DNS, in the CodePipeline console, click on the **Deploy** stage, then click on the **CodeDeploy** link in the details panel.
 -  In the CodeDeploy console, scroll down to **Deployment lifecycle events** and click on the **Instance ID**.
 -  On the EC2 instance summary page, copy the **Public IPv4 DNS**.
 
-![image alt](DevOps-101)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-101.png)
 
 -  Paste the copied Public IPv4 DNS in a new browser tab and press **Enter**.
 -  We should see our web application with the new line we added:
 
-![image alt](DevOps-102)
+![image alt](https://github.com/AtulSharmaGeit/AWS-X-DevOps/blob/2f5881dc82626b7c1cd728da898de1c60a20629f/Images/DevOps-102.png)
 
 This confirms that our latest code changes were automatically deployed by CodePipeline.
 
