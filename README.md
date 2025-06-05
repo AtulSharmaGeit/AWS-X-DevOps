@@ -9,7 +9,7 @@ In this project I'll build from scratch a CI/CD pipeline that automates the buil
 -  [Secure Packages with CodeArtifact](#secure-packages-with-codeartifact)
 -  [Continuous Integration with CodeBuild](#continuous-integration-with-codebuild)
 -  [Deploy a Web App with CodeDeploy](#deploy-a-web-app-with-codedeploy)
--  [Build a CI/CD Pipeline with AWS](#build-a-CI/CD-pipeline-with-aws)
+-  [Build a CI/CD Pipeline with AWS](#build-a-cicd-pipeline-with-aws)
 
 ---
 ##  Set Up a Web App in the Cloud
